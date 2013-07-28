@@ -38,7 +38,7 @@ def check_tty(stream):
     except (OSError, IOError):
         return False
 
-def convert(rfile, hfile, rpath='', entries=-1, userfunc=None, selection=None, indexes=False):
+def convert(rfile, hfile, rpath='', entries=-1, userfunc=None, selection=None, indexes=[]):
 
     isatty = check_tty(sys.stdout)
     if isatty:
