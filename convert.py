@@ -38,7 +38,7 @@ def check_tty(stream):
     except (OSError, IOError):
         return False
 
-def convert(rfile, hfile, rpath='', entries=-1, userfunc=None, selection=None):
+def convert(rfile, hfile, rpath='', entries=-1, userfunc=None, selection=None, indexes=False):
 
     isatty = check_tty(sys.stdout)
     if isatty:
@@ -117,7 +117,7 @@ def convert(rfile, hfile, rpath='', entries=-1, userfunc=None, selection=None):
                         pbar.start()
                     recarray = tree2rec(tree, selection=selection)
                     recarray = pd.DataFrame(_drop_object_col(recarray))
-                    hfile.append(path_to_tree, recarray, data_columns = True)
+                    hfile.append(path_to_tree, recarray, data_columns = indexes)
                     #table = hfile.createTable(
                         #group, tree.GetName(),
                         #recarray, tree.GetTitle())
@@ -141,7 +141,7 @@ def convert(rfile, hfile, rpath='', entries=-1, userfunc=None, selection=None):
                                     selection=selection)
                             recarray = pd.DataFrame(_drop_object_col(recarray, warn=False))
                             #table.append(recarray)
-                            hfile.append(path_to_tree,recarray, data_columns = True)
+                            hfile.append(path_to_tree,recarray, data_columns = indexes)
                         else:
                             recarray = tree2rec(
                                 tree,
@@ -155,7 +155,7 @@ def convert(rfile, hfile, rpath='', entries=-1, userfunc=None, selection=None):
                             #table = hfile.createTable(
                                 #group, tree.GetName(),
                                 #recarray, tree.GetTitle())
-                            hfile.append(path_to_tree,recarray, data_columns = True)
+                            hfile.append(path_to_tree,recarray, data_columns = indexes)
                         offset += entries
                         if offset <= total_entries and pbar is not None:
                             pbar.update(offset)
