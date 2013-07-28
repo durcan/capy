@@ -9,7 +9,6 @@ import warnings
 from rootpy.io import root_open, TemporaryFile
 from rootpy import log; log = log[__name__]
 from rootpy.extern.progressbar import ProgressBar, Bar, ETA, Percentage
-from rootpy.logger.utils import check_tty
 
 from root_numpy import tree2rec, RootNumpyUnconvertibleWarning
 
@@ -29,6 +28,15 @@ def _drop_object_col(rec, warn=True):
                     "ignoring unsupported object branch '{0}'".format(name))
         return rec[names]
     return rec
+
+def check_tty(stream):
+    if not hasattr(stream, 'fileno'):
+        return False
+    try:
+        fileno = stream.fileno()
+        return os.isatty(fileno)
+    except (OSError, IOError):
+        return False
 
 def convert(rfile, hfile, rpath='', entries=-1, userfunc=None, selection=None):
 
