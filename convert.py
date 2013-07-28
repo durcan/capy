@@ -46,7 +46,7 @@ def convert(rfile, hfile, rpath='', entries=-1, userfunc=None, selection=None):
 
     own_h5file = False
     if isinstance(hfile, basestring):
-        hfile = pd.HDF5Store(hfile)
+        hfile = pd.HDFStore(hfile)
         own_h5file = True
     own_rootfile = False
     if isinstance(rfile, basestring):
