@@ -234,18 +234,34 @@ def LoadCut(detnum, min_date=0, max_date=numpy.inf, which_dataSet='ba',
                 print FileDate, line
         # print PassingFilesToLoad
         if len(cuts_to_load) > 1:
-            cuts = rfn.merge_arrays(
-                [cuts,
-                 root2array(PassingFilesToLoad,
-                            'cutDir/cutzip%0.1d' % detnum,
-                            [i])],
-                flatten=True,
-                usemask=False)
+            try:
+                cuts = rfn.merge_arrays(
+                    [cuts,
+                    root2array(PassingFilesToLoad,
+                                'cutDir/cutzip%0.1d' % detnum,
+                                [i])],
+                    flatten=True,
+                    usemask=False)
+            except:
+                cuts = rfn.merge_arrays(
+                    [cuts,
+                    root2array(PassingFilesToLoad,
+                                'cutDir/cutevent',
+                                [i])],
+                    flatten=True,
+                    usemask=False)
+
         else:
             print i, detnum
-            cuts = root2array(
-                PassingFilesToLoad, 'cutDir/cutzip%0.1d' %
-                detnum, [i])
+            try:
+                cuts = root2array(
+                    PassingFilesToLoad, 'cutDir/cutzip%0.1d' %
+                    detnum, [i])
+            except:
+                cuts = root2array(
+                    PassingFilesToLoad, 'cutDir/cutevent',
+                    [i])
+
 
         #cuts = root2array(PassingFilesToLoad, 'cutDir/cutzip%0.1d'%detnum)
         #cuts = numpy.append(cuts, root2array(PassingFilesToLoad, 'cutDir/cutzip%0.1d'%detnum))
