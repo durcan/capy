@@ -36,16 +36,17 @@ class data(object):
         for rrq in rrqs_to_load:
             self.loaded_rrqs.append(rrq)
         self.kwargs['eventRQ'] = eventRQ
-        kwargs = self.kwargs
+        kwargs = self.kwargs.copy()
         kwargs['data_location'] = self.data_location + '/all'
         return LoadFunction.LoadRRQ(**kwargs)
+
 
     def rq(self, rqs_to_load=[], eventRQ=False):
         self.kwargs['rqs_to_load'] = rqs_to_load
         for rq in rqs_to_load:
             self.loaded_rqs.append(rq)
         self.kwargs['eventRQ'] = eventRQ
-        kwargs = self.kwargs
+        kwargs = self.kwargs.copy()
         kwargs['data_location'] = self.data_location + '/all'
         return LoadFunction.LoadRQ(**kwargs)
 
@@ -53,6 +54,6 @@ class data(object):
         self.kwargs['cuts_to_load'] = cuts_to_load
         for cut in cuts_to_load:
             self.loaded_cuts.append(cut)
-        kwargs = self.kwargs
+        kwargs = self.kwargs.copy()
         kwargs['data_location'] = self.data_location + '/cuts/current'
         return LoadFunction.LoadCut(**kwargs)
