@@ -54,5 +54,5 @@ class data(object):
         for cut in cuts_to_load:
             self.loaded_cuts.append(cut)
         kwargs = self.kwargs
-        kwargs['data_location'] = self.data_location + '/cuts'
+        kwargs['data_location'] = self.data_location + '/cuts/current'
         return LoadFunction.LoadCut(**kwargs)
